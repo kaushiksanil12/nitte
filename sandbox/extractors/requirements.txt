@@ -1,0 +1,7 @@
+flask==3.0.0
+selenium==4.15.0
+gunicorn==21.2.0
+pillow==10.1.0
+tldextract==5.0.0
+requests==2.31.0
+beautifulsoup4==4.12.2
