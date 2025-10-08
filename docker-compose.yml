@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  ml-service:
+    build: ./ml-model
+    container_name: ml-service
+    ports:
+      - "8000:8000"
+    networks:
+      - analysis-network
+    restart: unless-stopped
+
+  sandbox:
+    build: ./sandbox
+    container_name: sandbox-service
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./sandbox/outputs:/app/outputs
+    environment:
+      - ML_SERVICE_URL=http://ml-service:8000
+    networks:
+      - analysis-network
+    depends_on:
+      - ml-service
+    restart: unless-stopped
+
+networks:
+  analysis-network:
+    driver: bridge
